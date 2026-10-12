@@ -249,6 +249,8 @@
   .st-text.st-pending { color: var(--warning); background: var(--warning-light); }
   .st-text.st-done { color: var(--success); background: var(--success-light); }
   .st-text.st-reject { color: var(--error); background: var(--error-light); }
+  /* 合同组标识：任意环节通用，仅标识不做展开（组内明细由 OA 承载） */
+  .grp-tag { font-size: 12px; font-weight: 500; color: var(--primary); background: rgba(41,120,255,0.1); padding: 2px 8px; border-radius: 4px; }
   /* 状态页签筛选（纯 CSS radio） */
   #ftag-launch:checked ~ .app .card:not(.f-launch) { display: none; }
   #ftag-todo:checked ~ .app .card:not(.f-todo) { display: none; }
@@ -630,6 +632,34 @@
         <div class="card-footer">
           <label for="nav-oa" class="btn-op primary">发起审批</label>
           <label for="s-pre" class="btn-op">退回预审</label>
+        </div>
+      </div>
+
+      <!-- 合同组演示卡：仅标识，组内明细由 OA 承载 -->
+      <div class="card f-launch">
+        <div class="card-header">
+          <span class="c-title">1010-设备采购合同组</span>
+          <span class="grp-tag">合同组 · 共3份</span>
+          <span class="st-text st-pending">待审批</span>
+        </div>
+        <div class="info-row"><span class="label">包含合同</span><span class="value">共 3 份 · 当前展示第 1 份</span></div>
+        <div class="info-row"><span class="label">合同分类</span><span class="value">采购合同</span></div>
+        <div class="info-row"><span class="label">合同属性</span><span class="value">标准合同</span></div>
+        <div class="info-row"><span class="label">合同金额</span><span class="value">1,280,000.00 CNY</span></div>
+        <div class="info-row"><span class="label">是否敞口合同</span><span class="value">否</span></div>
+        <div class="info-row"><span class="label">经办人</span><span class="value">王琦（WANGQI）</span></div>
+        <div class="info-row"><span class="label">经办负责人</span><span class="value">马腾（MATENG）</span></div>
+        <div class="info-row"><span class="label">经办部门</span><span class="value">法务部</span></div>
+        <div class="info-row"><span class="label">创建日期</span><span class="value">2026-10-09 09:40</span></div>
+        <input type="checkbox" id="abs-19" class="abs-toggle">
+        <div class="info-col"><div class="label">合同摘要</div>
+          <div class="summary">本合同组含 3 份采购合同打包审批；当前展示第 1 份：主设备采购，含到货验收与质保条款，其余两份详见 OA 审批单。</div>
+          <label for="abs-19" class="abs-more abs-open">更多</label><label for="abs-19" class="abs-more abs-close">收起</label>
+</div>
+        <div class="info-row"><span class="label">合同风险得分</span><span class="value"><label for="s-risk" class="risk-link"><span class="lv-mid">7.4分 · 中风险</span> · 查看明细</label></span></div>
+        <div class="card-footer">
+          <label for="nav-oa" class="btn-op primary">发起审批</label>
+          <label for="s-draft" class="btn-op">退回起草</label>
         </div>
       </div>
 
@@ -1282,7 +1312,7 @@
 <table><thead><tr><th>目标类型</th><th>目标描述</th></tr></thead><tbody><tr><td>主要目标</td><td>移动端一站式查看、筛选、跟踪合同审批数据；发起审批/去审批/审批详情单点直达 OA</td></tr><tr><td>次要目标 1</td><td>风险五维可视化（雷达图+触发因子，<strong>规划功能</strong>，穿透式风险画像完成后放开）</td></tr><tr><td>次要目标 2</td><td>撤回、退回起草/预审移动化，均带二次确认防误操作</td></tr></tbody></table>
 <h1 id="prd-sec-7">5. 用户角色与名词解释</h1>
 <table><thead><tr><th>用户角色</th><th>主要职责</th></tr></thead><tbody><tr><td>经办人</td><td>查看我经办/我发起的合同；发起审批、撤回、退回起草/预审</td></tr><tr><td>审批人</td><td>处理流转到我的待审批任务（跳转 OA）；查看我已审批的历史</td></tr></tbody></table>
-<table><thead><tr><th>名词</th><th>说明</th></tr></thead><tbody><tr><td>待发起</td><td>我经办、尚未发起 OA 审批的合同</td></tr><tr><td>待审批</td><td>流程流转到当前用户、待我处理的任务</td></tr><tr><td>审批中</td><td>我经办发起后、正在 OA 流转的合同（并入"已审批"页签展示）</td></tr><tr><td>已审批</td><td>我经办流转中（审批中）与已完成（含已驳回）的数据</td></tr><tr><td>敞口合同</td><td>存在敞口风险的合同（卡片字段"是否敞口合同"）</td></tr><tr><td>单点跳转</td><td>统一登录态免密跳转至 OA，跳转后操作均在 OA 内完成</td></tr></tbody></table>
+<table><thead><tr><th>名词</th><th>说明</th></tr></thead><tbody><tr><td>待发起</td><td>我经办、尚未发起 OA 审批的合同</td></tr><tr><td>待审批</td><td>流程流转到当前用户、待我处理的任务</td></tr><tr><td>审批中</td><td>我经办发起后、正在 OA 流转的合同（并入"已审批"页签展示）</td></tr><tr><td>已审批</td><td>我经办流转中（审批中）与已完成（含已驳回）的数据</td></tr><tr><td>敞口合同</td><td>存在敞口风险的合同（卡片字段"是否敞口合同"）</td></tr><tr><td>单点跳转</td><td>统一登录态免密跳转至 OA，跳转后操作均在 OA 内完成</td></tr><tr><td>合同组</td><td>多份合同打包发起一次审批；卡片仅展示第一份合同信息，组内明细由 OA 审批单承载</td></tr></tbody></table>
 <h1 id="prd-sec-8">6. 功能详细需求</h1>
 <h2>6.1 工作台审批入口</h2>
 <h3>【功能描述】</h3>
@@ -1303,9 +1333,10 @@
 <h3>【业务规则】</h3>
 <p>1. 页签语义：待发起=我经办未发起 OA；待审批=流转到我待我处理；已审批=审批中（我经办流转中）与已完成（含已驳回）合并展示；</p>
 <p>2. 退回起草仅适用标准合同，退回预审仅适用非标准合同；</p>
-<p>3. 撤回仅经办人可见；原型卡片条数均为示例数据。</p>
+<p>3. 撤回仅经办人可见；原型卡片条数均为示例数据；</p>
+<p>4. 合同组：组审批可出现在任意状态环节，卡片标题旁显示「合同组 · 共N份」标识，字段固定展示第一份合同信息（含"包含合同：共N份 · 当前展示第1份"提示行）；组内各份合同明细由 OA 审批单承载，本系统不做组内清单展开，不影响单点跳转 OA。</p>
 <h3>【输入输出】（卡片字段，顺序固定）</h3>
-<table><thead><tr><th>字段名</th><th>字段类型</th><th>字段逻辑</th><th>输入/输出</th><th>备注</th></tr></thead><tbody><tr><td>合同名称+状态标签</td><td>文本</td><td>色块标签（语义色文字+10% 同色底，无圆点）</td><td>输出</td><td>审批中蓝/待审批橙/完成绿/驳回红</td></tr><tr><td>合同分类</td><td>枚举</td><td>采购/销售/租赁/其他</td><td>输出</td><td>顺序 1</td></tr><tr><td>合同属性</td><td>枚举</td><td>标准/非标准合同</td><td>输出</td><td>顺序 2</td></tr><tr><td>合同金额</td><td>数字(16,2)</td><td>千分位+2 位小数+CNY</td><td>输出</td><td>顺序 3</td></tr><tr><td>是否敞口合同</td><td>枚举</td><td>是/否</td><td>输出</td><td>顺序 4</td></tr><tr><td>经办人/经办负责人</td><td>文本</td><td>姓名（拼音全大写）</td><td>输出</td><td>顺序 5/6</td></tr><tr><td>经办部门</td><td>文本</td><td>部门名称</td><td>输出</td><td>顺序 7</td></tr><tr><td>创建日期</td><td>日期时间</td><td>YYYY-MM-DD HH:MM</td><td>输出</td><td>顺序 8</td></tr><tr><td>合同摘要</td><td>文本(长)</td><td>核心条款概述；默认两行，更多/收起</td><td>输出</td><td>顺序 9</td></tr><tr><td>合同风险得分</td><td>数字+等级</td><td>见 6.3</td><td>输出</td><td>顺序 10</td></tr><tr><td>搜索关键字/日期范围/状态页签</td><td>输入控件</td><td>见功能说明</td><td>输入</td><td>—</td></tr></tbody></table>
+<table><thead><tr><th>字段名</th><th>字段类型</th><th>字段逻辑</th><th>输入/输出</th><th>备注</th></tr></thead><tbody><tr><td>合同名称+状态标签</td><td>文本</td><td>色块标签（语义色文字+10% 同色底，无圆点）</td><td>输出</td><td>审批中蓝/待审批橙/完成绿/驳回红</td></tr><tr><td>合同分类</td><td>枚举</td><td>采购/销售/租赁/其他</td><td>输出</td><td>顺序 1</td></tr><tr><td>合同属性</td><td>枚举</td><td>标准/非标准合同</td><td>输出</td><td>顺序 2</td></tr><tr><td>合同金额</td><td>数字(16,2)</td><td>千分位+2 位小数+CNY</td><td>输出</td><td>顺序 3</td></tr><tr><td>是否敞口合同</td><td>枚举</td><td>是/否</td><td>输出</td><td>顺序 4</td></tr><tr><td>经办人/经办负责人</td><td>文本</td><td>姓名（拼音全大写）</td><td>输出</td><td>顺序 5/6</td></tr><tr><td>经办部门</td><td>文本</td><td>部门名称</td><td>输出</td><td>顺序 7</td></tr><tr><td>创建日期</td><td>日期时间</td><td>YYYY-MM-DD HH:MM</td><td>输出</td><td>顺序 8</td></tr><tr><td>合同摘要</td><td>文本(长)</td><td>核心条款概述；默认两行，更多/收起</td><td>输出</td><td>顺序 9</td></tr><tr><td>合同风险得分</td><td>数字+等级</td><td>见 6.3</td><td>输出</td><td>顺序 10</td></tr><tr><td>合同组标识</td><td>文本</td><td>「合同组 · 共N份」标签 + 包含合同提示行</td><td>输出</td><td>任意环节通用；仅标识不展开</td></tr></tbody></table>
 <h3>【操作说明】</h3>
 <table><thead><tr><th>操作项</th><th>操作说明</th><th>更新人/更新时间</th></tr></thead><tbody><tr><td>点击状态页签 / 筛选 ▾</td><td>切换筛选；弹出日期筛选抽屉</td><td>李敏 / 2026-10-09 18:30</td></tr><tr><td>点击「发起审批 / 去审批 / 审批详情」</td><td>单点跳转 OA 审批页（见 6.4）</td><td>李敏 / 2026-10-10 09:00</td></tr><tr><td>点击「撤回」（审批中状态）</td><td>弹出撤回确认弹窗（见 6.5）</td><td>李敏 / 2026-10-10 09:05</td></tr><tr><td>点击「退回起草 / 退回预审」（待发起状态）</td><td>弹出退回确认弹窗（见 6.5）</td><td>李敏 / 2026-10-09 18:30</td></tr></tbody></table>
 <h2>6.3 合同风险得分与明细（规划功能）</h2>
