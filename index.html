@@ -115,6 +115,7 @@
   #s-oawd:checked ~ #ov-oawd,
   #s-oaload:checked ~ #ov-oaload,
   #s-risk:checked ~ #ov-risk { display: block; }
+  #s-riskg:checked ~ #ov-riskg { display: block; }
 
   .sheet-backdrop { position: absolute; inset: 0; background: rgba(5,21,55,0.2); }
   .bottom-sheet { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 420px; background: var(--bg-card); border-radius: 16px 16px 0 0; padding: 16px 16px 24px; z-index: 501; }
@@ -251,6 +252,15 @@
   .st-text.st-reject { color: var(--error); background: var(--error-light); }
   /* 合同组标识：任意环节通用，仅标识不做展开（组内明细由 OA 承载） */
   .grp-tag { font-size: 12px; font-weight: 500; color: var(--primary); background: rgba(41,120,255,0.1); padding: 2px 8px; border-radius: 4px; }
+  /* 合同组风险明细：组内合同切换（纯 CSS radio） */
+  .og-radio { display: none; }
+  .og-tabs { display: flex; gap: 6px; margin: 2px 0 8px; }
+  .og-tabs .og-chip { flex: 1; text-align: center; padding: 6px 0; font-size: 12px; background: #F2F3F5; color: var(--text-secondary); border-radius: 4px; cursor: pointer; white-space: nowrap; }
+  .ogp { display: none; }
+  #ogrp-1:checked ~ .ogp-1, #ogrp-2:checked ~ .ogp-2, #ogrp-3:checked ~ .ogp-3 { display: block; }
+  #ogrp-1:checked ~ .og-tabs label[for="ogrp-1"],
+  #ogrp-2:checked ~ .og-tabs label[for="ogrp-2"],
+  #ogrp-3:checked ~ .og-tabs label[for="ogrp-3"] { color: var(--primary); background: rgba(41,120,255,0.1); font-weight: 500; }
   /* 状态页签筛选（纯 CSS radio） */
   #ftag-launch:checked ~ .app .card:not(.f-launch) { display: none; }
   #ftag-todo:checked ~ .app .card:not(.f-todo) { display: none; }
@@ -656,7 +666,7 @@
           <div class="summary">本合同组含 3 份采购合同打包审批；当前展示第 1 份：主设备采购，含到货验收与质保条款，其余两份详见 OA 审批单。</div>
           <label for="abs-19" class="abs-more abs-open">更多</label><label for="abs-19" class="abs-more abs-close">收起</label>
 </div>
-        <div class="info-row"><span class="label">合同风险得分</span><span class="value"><label for="s-risk" class="risk-link"><span class="lv-mid">7.4分 · 中风险</span> · 查看明细</label></span></div>
+        <div class="info-row"><span class="label">合同风险得分</span><span class="value"><label for="s-riskg" class="risk-link"><span class="lv-mid">7.4分 · 中风险</span> · 查看明细</label></span></div>
         <div class="card-footer">
           <label for="nav-oa" class="btn-op primary">发起审批</label>
           <label for="s-draft" class="btn-op">退回起草</label>
@@ -1170,6 +1180,120 @@
       </div>
     </div>
 
+    <!-- 合同组风险明细：组内合同切换（风险为本系统数据，OA 不承载） -->
+    <input type="checkbox" id="s-riskg" class="sheet-toggle">
+    <div class="sheet-overlay" id="ov-riskg">
+      <label for="s-riskg" class="sheet-backdrop"></label>
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-title">合同风险得分明细（合同组）</div>
+        <input type="radio" name="ogrp" id="ogrp-1" class="og-radio" checked>
+        <input type="radio" name="ogrp" id="ogrp-2" class="og-radio">
+        <input type="radio" name="ogrp" id="ogrp-3" class="og-radio">
+        <div class="og-tabs">
+          <label for="ogrp-1" class="og-chip">第1份 主设备采购</label>
+          <label for="ogrp-2" class="og-chip">第2份 安装服务</label>
+          <label for="ogrp-3" class="og-chip">第3份 备品备件</label>
+        </div>
+      <div class="ogp ogp-1">
+        <div class="risk-sum">综合得分 <b>8.2</b> · 高风险 · 总分10分</div>
+        <div class="radar-wrap">
+          <svg width="200" height="190" viewBox="0 0 180 175">
+            <polygon points="90,25 156.6,73.4 131.2,151.6 48.8,151.6 23.4,73.4" fill="none" stroke="#DCDFE6" stroke-width="1"/>
+            <polygon points="90,60 123.3,84.2 110.6,123.3 69.4,123.3 56.7,84.2" fill="none" stroke="#E4E7ED" stroke-width="1"/>
+            <polygon points="90,77.5 106.6,89.6 100.3,109.2 79.7,109.2 73.4,89.6" fill="none" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="90" y2="25" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="156.6" y2="73.4" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="131.2" y2="151.6" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="48.8" y2="151.6" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="23.4" y2="73.4" stroke="#E4E7ED" stroke-width="1"/>
+            <polygon points="90.0,30.6 138.0,79.4 125.0,143.1 57.0,140.3 36.7,77.7" fill="rgba(41,120,255,0.18)" stroke="#2978FF" stroke-width="1.5"/>
+<circle cx="90.0" cy="30.6" r="2.5" fill="#2978FF"/><circle cx="138.0" cy="79.4" r="2.5" fill="#2978FF"/><circle cx="125.0" cy="143.1" r="2.5" fill="#2978FF"/><circle cx="57.0" cy="140.3" r="2.5" fill="#2978FF"/><circle cx="36.7" cy="77.7" r="2.5" fill="#2978FF"/>
+            <text x="90" y="16" text-anchor="middle" font-size="10" fill="#465065">文本风险</text>
+            <text x="163" y="70" text-anchor="start" font-size="10" fill="#465065">履约风险</text>
+            <text x="138" y="164" text-anchor="middle" font-size="10" fill="#465065">相对方风险</text>
+            <text x="42" y="164" text-anchor="middle" font-size="10" fill="#465065">合规风险</text>
+            <text x="17" y="70" text-anchor="end" font-size="10" fill="#465065">法律风险</text>          </svg>
+        </div>
+        <div class="risk-dim"><span>文本风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">2.3 / 2.5</span></div>
+        <div class="risk-dim"><span>履约风险</span><span class="status-tag st-pending"><span class="dot"></span>中</span><span class="r-score">1.8 / 2.5</span></div>
+        <div class="risk-dim"><span>相对方风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">1.7 / 2.0</span></div>
+        <div class="risk-dim"><span>合规风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">1.2 / 1.5</span></div>
+        <div class="risk-dim"><span>法律风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">1.2 / 1.5</span></div>
+      </div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>违约责任条款缺失、付款条件表述模糊</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>交付节点无验收标准、履约保证金未约定</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>相对方近一年存在涉诉记录</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>印章使用范围未约定</div>
+        <div class="factor-line" style="border-bottom:none;">触发因子：引用旧版法规条款</div>
+      <div class="ogp ogp-2">
+        <div class="risk-sum">综合得分 <b>6.4</b> · 中风险 · 总分10分</div>
+        <div class="radar-wrap">
+          <svg width="200" height="190" viewBox="0 0 180 175">
+            <polygon points="90,25 156.6,73.4 131.2,151.6 48.8,151.6 23.4,73.4" fill="none" stroke="#DCDFE6" stroke-width="1"/>
+            <polygon points="90,60 123.3,84.2 110.6,123.3 69.4,123.3 56.7,84.2" fill="none" stroke="#E4E7ED" stroke-width="1"/>
+            <polygon points="90,77.5 106.6,89.6 100.3,109.2 79.7,109.2 73.4,89.6" fill="none" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="90" y2="25" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="156.6" y2="73.4" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="131.2" y2="151.6" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="48.8" y2="151.6" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="23.4" y2="73.4" stroke="#E4E7ED" stroke-width="1"/>
+            <polygon points="90.0,41.8 130.0,82.0 114.7,129.0 65.3,129.0 50.0,82.0" fill="rgba(41,120,255,0.18)" stroke="#2978FF" stroke-width="1.5"/>
+<circle cx="90.0" cy="41.8" r="2.5" fill="#2978FF"/><circle cx="130.0" cy="82.0" r="2.5" fill="#2978FF"/><circle cx="114.7" cy="129.0" r="2.5" fill="#2978FF"/><circle cx="65.3" cy="129.0" r="2.5" fill="#2978FF"/><circle cx="50.0" cy="82.0" r="2.5" fill="#2978FF"/>
+            <text x="90" y="16" text-anchor="middle" font-size="10" fill="#465065">文本风险</text>
+            <text x="163" y="70" text-anchor="start" font-size="10" fill="#465065">履约风险</text>
+            <text x="138" y="164" text-anchor="middle" font-size="10" fill="#465065">相对方风险</text>
+            <text x="42" y="164" text-anchor="middle" font-size="10" fill="#465065">合规风险</text>
+            <text x="17" y="70" text-anchor="end" font-size="10" fill="#465065">法律风险</text>          </svg>
+        </div>
+        <div class="risk-dim"><span>文本风险</span><span class="status-tag st-pending"><span class="dot"></span>中</span><span class="r-score">1.9 / 2.5</span></div>
+        <div class="risk-dim"><span>履约风险</span><span class="status-tag st-pending"><span class="dot"></span>中</span><span class="r-score">1.5 / 2.5</span></div>
+        <div class="risk-dim"><span>相对方风险</span><span class="status-tag st-pending"><span class="dot"></span>中</span><span class="r-score">1.2 / 2.0</span></div>
+        <div class="risk-dim"><span>合规风险</span><span class="status-tag st-pending"><span class="dot"></span>中</span><span class="r-score">0.9 / 1.5</span></div>
+        <div class="risk-dim"><span>法律风险</span><span class="status-tag st-pending"><span class="dot"></span>中</span><span class="r-score">0.9 / 1.5</span></div>
+      </div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>验收标准表述笼统、缺少量化指标</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>里程碑节点未约定违约金</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>相对方近三年涉诉 1 条（已和解）</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>环保合规条款缺失</div>
+        <div class="factor-line" style="border-bottom:none;">触发因子：管辖约定不利</div>
+      <div class="ogp ogp-3">
+        <div class="risk-sum">综合得分 <b>8.8</b> · 高风险 · 总分10分</div>
+        <div class="radar-wrap">
+          <svg width="200" height="190" viewBox="0 0 180 175">
+            <polygon points="90,25 156.6,73.4 131.2,151.6 48.8,151.6 23.4,73.4" fill="none" stroke="#DCDFE6" stroke-width="1"/>
+            <polygon points="90,60 123.3,84.2 110.6,123.3 69.4,123.3 56.7,84.2" fill="none" stroke="#E4E7ED" stroke-width="1"/>
+            <polygon points="90,77.5 106.6,89.6 100.3,109.2 79.7,109.2 73.4,89.6" fill="none" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="90" y2="25" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="156.6" y2="73.4" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="131.2" y2="151.6" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="48.8" y2="151.6" stroke="#E4E7ED" stroke-width="1"/>
+            <line x1="90" y1="95" x2="23.4" y2="73.4" stroke="#E4E7ED" stroke-width="1"/>
+            <polygon points="90.0,27.8 145.9,76.8 127.1,145.9 54.3,144.1 36.7,77.7" fill="rgba(41,120,255,0.18)" stroke="#2978FF" stroke-width="1.5"/>
+<circle cx="90.0" cy="27.8" r="2.5" fill="#2978FF"/><circle cx="145.9" cy="76.8" r="2.5" fill="#2978FF"/><circle cx="127.1" cy="145.9" r="2.5" fill="#2978FF"/><circle cx="54.3" cy="144.1" r="2.5" fill="#2978FF"/><circle cx="36.7" cy="77.7" r="2.5" fill="#2978FF"/>
+            <text x="90" y="16" text-anchor="middle" font-size="10" fill="#465065">文本风险</text>
+            <text x="163" y="70" text-anchor="start" font-size="10" fill="#465065">履约风险</text>
+            <text x="138" y="164" text-anchor="middle" font-size="10" fill="#465065">相对方风险</text>
+            <text x="42" y="164" text-anchor="middle" font-size="10" fill="#465065">合规风险</text>
+            <text x="17" y="70" text-anchor="end" font-size="10" fill="#465065">法律风险</text>          </svg>
+        </div>
+        <div class="risk-dim"><span>文本风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">2.4 / 2.5</span></div>
+        <div class="risk-dim"><span>履约风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">2.1 / 2.5</span></div>
+        <div class="risk-dim"><span>相对方风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">1.8 / 2.0</span></div>
+        <div class="risk-dim"><span>合规风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">1.3 / 1.5</span></div>
+        <div class="risk-dim"><span>法律风险</span><span class="status-tag st-reject"><span class="dot"></span>高</span><span class="r-score">1.2 / 1.5</span></div>
+      </div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>质量条款未量化、抽检比例缺失</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>供货周期无约束性约定</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>新供应商无历史履约数据</div>
+        <div class="factor-line"><span class="f-tag">触发因子</span>发票开具条款不合规</div>
+        <div class="factor-line" style="border-bottom:none;">触发因子：引用已废止标准</div>
+        <div class="sheet-actions">
+          <label for="s-riskg" class="btn-sheet main">我知道了</label>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- ================= OA 审批页（真实截图内嵌 · 单点跳转展示） ================= -->
@@ -1341,13 +1465,14 @@
 <table><thead><tr><th>操作项</th><th>操作说明</th><th>更新人/更新时间</th></tr></thead><tbody><tr><td>点击状态页签 / 筛选 ▾</td><td>切换筛选；弹出日期筛选抽屉</td><td>李敏 / 2026-10-09 18:30</td></tr><tr><td>点击「发起审批 / 去审批 / 审批详情」</td><td>单点跳转 OA 审批页（见 6.4）</td><td>李敏 / 2026-10-10 09:00</td></tr><tr><td>点击「撤回」（审批中状态）</td><td>弹出撤回确认弹窗（见 6.5）</td><td>李敏 / 2026-10-10 09:05</td></tr><tr><td>点击「退回起草 / 退回预审」（待发起状态）</td><td>弹出退回确认弹窗（见 6.5）</td><td>李敏 / 2026-10-09 18:30</td></tr></tbody></table>
 <h2>6.3 合同风险得分与明细（规划功能）</h2>
 <h3>【功能描述】</h3>
-<ul><li><strong>功能说明</strong>：卡片展示「X.X分 · 等级 · 查看明细」（得分越高风险越大，颜色随风险标识红/橙/绿）；点击弹出明细弹窗：综合得分 → 五维雷达图（文本/履约/相对方/合规/法律）→ 各维度得分与触发因子 →「我知道了」关闭。</li></ul>
+<ul><li><strong>功能说明</strong>：卡片展示「X.X分 · 等级 · 查看明细」（得分越高风险越大，颜色随风险标识红/橙/绿）；点击弹出明细弹窗：综合得分 → 五维雷达图（文本/履约/相对方/合规/法律）→ 各维度得分与触发因子 →「我知道了」关闭。<strong>合同组卡</strong>：明细弹窗顶部提供组内合同切换 chips（第1/2/3份），切换后综合得分、雷达图、五维与触发因子整体联动。</li></ul>
 <p>【截图：shot3_risk.png|合同风险得分明细（五维雷达图+触发因子）】</p>
 <h3>【业务规则】</h3>
 <p>1. 本模块为<strong>规划功能</strong>：本期预留展示位与交互形态，穿透式风险画像完成后放开；</p>
-<p>2. 得分口径（总分/权重/阈值）与颜色跟随后续统一规范，本 PRD 不单独定义；原型数值均为示例数据。</p>
+<p>2. 得分口径（总分/权重/阈值）与颜色跟随后续统一规范，本 PRD 不单独定义；原型数值均为示例数据；</p>
+<p>3. 合同组：列表得分行展示当前展示合同（第 1 份）的得分；风险得分属本系统数据（非 OA 边界），明细弹窗内可切换查看组内每份合同，不影响单点跳转 OA。</p>
 <h3>【输入输出】</h3>
-<table><thead><tr><th>字段名</th><th>字段类型</th><th>字段逻辑</th><th>输入/输出</th><th>备注</th></tr></thead><tbody><tr><td>综合得分+风险等级</td><td>数字+枚举</td><td>高/中/低（示例 8.2 高）</td><td>输出</td><td>红/橙/绿</td></tr><tr><td>维度得分+维度等级</td><td>数字+枚举</td><td>五维各维度得分/权重</td><td>输出</td><td>雷达图与列表一致</td></tr><tr><td>触发因子</td><td>文本</td><td>各维度扣分的具体风险项</td><td>输出</td><td>每维度≥1 条</td></tr><tr><td>查看明细点击</td><td>事件</td><td>打开/关闭明细弹窗</td><td>输入</td><td>整行可点击</td></tr></tbody></table>
+<table><thead><tr><th>字段名</th><th>字段类型</th><th>字段逻辑</th><th>输入/输出</th><th>备注</th></tr></thead><tbody><tr><td>综合得分+风险等级</td><td>数字+枚举</td><td>高/中/低（示例 8.2 高）</td><td>输出</td><td>红/橙/绿</td></tr><tr><td>维度得分+维度等级</td><td>数字+枚举</td><td>五维各维度得分/权重</td><td>输出</td><td>雷达图与列表一致</td></tr><tr><td>触发因子</td><td>文本</td><td>各维度扣分的具体风险项</td><td>输出</td><td>每维度≥1 条</td></tr><tr><td>查看明细点击</td><td>事件</td><td>打开/关闭明细弹窗</td><td>输入</td><td>整行可点击</td></tr><tr><td>组内合同切换</td><td>枚举</td><td>第1/2/3份 chips，切换后明细整体联动</td><td>输入</td><td>仅合同组卡出现；默认第1份</td></tr></tbody></table>
 <h3>【操作说明】</h3>
 <table><thead><tr><th>操作项</th><th>操作说明</th><th>更新人/更新时间</th></tr></thead><tbody><tr><td>点击得分行</td><td>打开风险明细弹窗</td><td>李敏 / 2026-10-10 09:00</td></tr><tr><td>点击「我知道了」</td><td>关闭弹窗</td><td>李敏 / 2026-10-10 09:00</td></tr></tbody></table>
 <h2>6.4 OA 单点跳转</h2>
